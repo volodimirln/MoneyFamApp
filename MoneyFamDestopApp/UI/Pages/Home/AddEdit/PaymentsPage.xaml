@@ -1,0 +1,138 @@
+﻿<Page x:Class="MoneyFamDestopApp.UI.Pages.Home.AddEdit.PaymentsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MoneyFamDestopApp.UI.Pages.Home.AddEdit"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PaymentsPage"  Background="#F7F7F9">
+    <Grid>
+        <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="7*" />
+        <ColumnDefinition Width="3*" />
+    </Grid.ColumnDefinitions>
+
+    <Grid Grid.Column="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="20,35,20,0">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Операции" FontFamily="Montserrat" FontWeight="Bold" FontSize="28" />
+                    <Label x:Name="lblPage" FontFamily="Montserrat" FontWeight="Bold" FontSize="24" Margin="450,0,0,0" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="7,0,0,0">
+                    <ComboBox x:Name="cmbItemPeriod" SelectionChanged="cmbItemPeriod_SelectionChanged"  SelectedIndex="0"  Style="{StaticResource ComboBoxPeriodSelectedItem}" FontFamily="Montserrat" Foreground="#757575" FontWeight="Medium" FontSize="12" DisplayMemberPath="DateTimeFormat" />
+                    <Image Source="\Resources\Images\arrowdown.png" Margin="7,-5,0,0" Opacity="0.5" Width="17"/>
+                </StackPanel>
+            </StackPanel>
+        <StackPanel Grid.Row="1" Margin="20,0,0,20">
+				<Label FontFamily="Montserrat" Foreground="#757575" FontWeight="Medium" Margin="0,150,0,0" HorizontalAlignment="Center" Content="На данный момент у Вас нет операций" x:Name="lblEmpty" FontSize="28" />
+				<ListView SelectionChanged="lsvItems_SelectionChanged"  x:Name="lsvItems" BorderThickness="0" Background="#F7F7F9">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Width="670" Padding="10" Margin="0,10,0,0" Background="#fff" CornerRadius="15" Height="80">
+                            <StackPanel Orientation="Horizontal">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="7*" />
+                                        <ColumnDefinition Width="3*" />
+                                        <ColumnDefinition Width="3*" />
+                                    </Grid.ColumnDefinitions>
+                                </Grid>
+                                <StackPanel Orientation="Vertical" Grid.Column="0">
+                                    <Label Content="{Binding Goal.Title}" Width="300" FontFamily="Montserrat"  FontWeight="SemiBold" FontSize="18" />
+                                        <Label Content="{Binding DatePaymentStr}" FontFamily="Inter" Foreground="#757575" FontWeight="Regular" FontSize="12" />
+                                </StackPanel>
+                                    
+                                    <StackPanel Orientation="Horizontal" Margin="30,0,70,0" Grid.Column="1">
+                                        <Border Margin="35,0,0,0" Height="20" Width="85" Background="{Binding Clr}" CornerRadius="10" >
+                                            <Label Content="{Binding CtType}" FontSize="12" Foreground="#fff" Margin="0" Padding="20,0,0,0" />
+                                    </Border>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical" Margin="30,0,0,0" Grid.Column="2">
+                                    <Label Content="{Binding AmountStr}" FontFamily="Montserrat"  FontWeight="SemiBold" FontSize="18" />
+                                        <Label Content="{Binding CompletePayment}" FontFamily="Inter" Foreground="#757575" FontWeight="Regular" FontSize="12" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,-50,0,0">
+            <Button x:Name="btnLeft" Click="btnLeft_Click"  Margin="230,0,0,0" Width="27" Background="#F7F7F9" BorderThickness="0">
+                <Image x:Name="img1" Source="\Resources\Images\arrowleft.png" Margin="0" Width="25"/>
+            </Button>
+            <Label x:Name="lblCount" FontFamily="Montserrat" Margin="70,0,70,0"  FontWeight="Bold" FontSize="16" />
+            <Button x:Name="btnRight" Click="btnRight_Click"  Width="27" Background="#F7F7F9" BorderThickness="0">
+                    <Image  x:Name="img2" Source="\Resources\Images\arrow.png" Margin="0" Width="25"/>
+            </Button>
+        </StackPanel>
+    </Grid>
+    <Grid Grid.Column="1" Background="#EEEDF2">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="14*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Margin="25" Grid.Row="0">
+            <Label Margin="0,90,0,0" Content="Добавить операцию" FontFamily="Montserrat"  FontWeight="SemiBold" FontSize="18" />
+            <StackPanel>
+                <Label Margin="0,15,0,0"  Content="Дата операции" FontFamily="Montserrat"  FontWeight="SemiBold" FontSize="12" Foreground="#686868"/>
+
+                    <Border Height="30" Background="#fff" CornerRadius="7" >
+                        <DatePicker x:Name="tbxTitle"
+									FontSize="14"
+									Foreground="#686868"
+									FontWeight="SemiBold"
+									IsDropDownOpen="False"
+									SelectedDateFormat="Short"
+									SelectedDate="{Binding DateTime}"
+									BorderThickness="0"/>
+                    </Border>
+
+                    <!--<TextBox  BorderThickness="0" Height="30" Padding="5">
+                    <TextBox.Resources>
+                        <Style  TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="7" />
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>-->
+                <Label Margin="0,5,0,0"  Content="Сумма" FontFamily="Montserrat"  FontWeight="SemiBold" FontSize="12" Foreground="#686868"/>
+                <TextBox BorderThickness="0" PreviewTextInput="tbxAmount_PreviewTextInput"   x:Name="tbxAmount" Height="30" Padding="5">
+                    <TextBox.Resources>
+                        <Style  TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="7" />
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+                <Label Margin="0,5,0,0"  Content="Цель" FontFamily="Montserrat"  FontWeight="SemiBold" FontSize="12" Foreground="#686868"/>
+
+                    <Border Background="#fff" BorderThickness="0" CornerRadius="7" Padding="10,5" Height="30">
+                        <ComboBox x:Name="cmbItem"  Style="{StaticResource ComboBoxSelectedItem}" DisplayMemberPath="Title" SelectedValuePath="Id" />
+                    </Border>
+                    <Label Margin="0,5,0,0"  Content="Тип" FontFamily="Montserrat"  FontWeight="SemiBold" FontSize="12" Foreground="#686868"/>
+                    <Border Background="#fff" BorderThickness="0" CornerRadius="7" Padding="10,5" Height="30">
+                        <ComboBox x:Name="cmbIsYield"  Style="{StaticResource ComboBoxSelectedItem}">
+                        <ComboBoxItem Tag="0" Content="Уход"/>
+                        <ComboBoxItem Tag="1" Content="Пироход"/>
+                    </ComboBox>
+                    </Border>
+                    <Button Margin="0,10,0,0" x:Name="btnSave" Click="btnSave_Click"  Content="Сохранить" Height="30" BorderThickness="0" Foreground="#fff" Background="#179DE3">
+                    <Button.Resources>
+                        <Style  TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="7" />
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
+                <Label Margin="0,25,0,0"  Content="Справка" FontFamily="Montserrat"  FontWeight="SemiBold" FontSize="12" Foreground="#686868"/>
+                <TextBlock Margin="5,5,0,0" FontFamily="Montserrat"  FontWeight="Medium"  FontSize="12" Foreground="#686868" TextWrapping="Wrap"  Text="После добавления операции ее необходимо «Выполнить» так, как операция может быть запланирована быть на будущие для этого просто нажмите на нее из списка, если Вы хотите удалить операцию, то нажмите на нее повторно"/>
+            </StackPanel>
+    </Grid>
+    </Grid>
+</Page>

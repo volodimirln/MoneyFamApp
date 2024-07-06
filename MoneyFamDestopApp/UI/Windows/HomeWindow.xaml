@@ -1,0 +1,29 @@
+﻿<Window x:Class="MoneyFamDestopApp.UI.Windows.HomeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MoneyFamDestopApp.UI.Windows"
+        mc:Ignorable="d"
+        Title="MoneyFam" Height="700" Width="1200" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/Resources/Images/MoneyFam.jpg">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+		<Button x:Name="btnExit" Content="Выход" Click="btnExit_Click" Margin="0,100,0,0"  Background="#fff" BorderThickness="0" Width="100" Height="50" VerticalAlignment="Top"/>
+		<StackPanel Grid.Column="0">
+			<Image Source="/Resources/Images/MoneyFam.jpg" Margin="10"/>
+			<Button x:Name="btnHome" Click="btnHome_Click" Margin="0,150,0,0"  Background="#fff" BorderThickness="0">
+                <Image Source="\Resources\Images\home.png" Margin="0" Width="45"/>
+            </Button>
+            <Button x:Name="btnFanily" Click="btnFanily_Click" Background="#fff" Margin="0,50,0,0" BorderThickness="0">
+                <Image Source="\Resources\Images\family.png" Margin="0" Width="45"/>
+            </Button>
+            <Button  x:Name="btnTarget" Click="btnTarget_Click" Background="#fff"  Margin="0,50,0,0" BorderThickness="0">
+                <Image Source="\Resources\Images\target.png" Margin="0" Width="45"/>
+            </Button>
+        </StackPanel>
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Grid.Column="1" />
+    </Grid>
+</Window>

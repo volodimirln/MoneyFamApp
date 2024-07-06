@@ -1,0 +1,186 @@
+﻿<Page x:Class="MoneyFamDestopApp.UI.Pages.Home.HomePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MoneyFamDestopApp.UI.Pages.Home"
+      xmlns:Goals="clr-namespace:MoneyFamDestopApp.UI.UserControllers"
+      xmlns:Statistic="clr-namespace:MoneyFamDestopApp.UI.UserControllers"
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="1100"
+      Title="HomePage" Background="#F7F7F9">
+  
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="14*"/>
+                    <RowDefinition Height="9*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Margin="20,35,20,0">
+                    <Label x:Name="lblWelcome" FontFamily="Montserrat" FontWeight="Bold" FontSize="28" />
+                </StackPanel>
+                <StackPanel Grid.Row="1" Margin="20,0,0,20">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Цели" FontFamily="Montserrat" FontWeight="SemiBold" FontSize="18" />
+                        
+                        <Button x:Name="btnGoals"
+								Click="btnGoals_Click"
+								Background="#F7F7F9" BorderThickness="0"
+								Content="Перейти к целям" Margin="460,0,0,0"
+								FontFamily="Montserrat"
+								FontWeight="Medium"
+								FontSize="16" />
+                        <Image Source="\Resources\Images\arrow.png" Margin="10,0,0,0" Width="25"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="7,0,0,10">
+                        <ComboBox x:Name="cmbItemPeriod" SelectionChanged="cmbItemPeriod_SelectionChanged"  SelectedIndex="0"  Style="{StaticResource ComboBoxPeriodSelectedItem}" FontFamily="Montserrat" Foreground="#757575" FontWeight="Medium" FontSize="12" DisplayMemberPath="DateTimeFormat" />
+                        <Image Source="\Resources\Images\arrowdown.png" Margin="7,-5,0,0" Opacity="0.5" Width="17"/>
+                    </StackPanel>
+                    <Label FontFamily="Montserrat"
+						   Foreground="#757575"
+						   FontWeight="Medium"
+						   Margin="0,100,0,0"
+						   HorizontalAlignment="Center"
+						   Content="На данный момент у Вас нет целей"
+						   x:Name="lblEmpty" FontSize="28" />
+                    <ListView Background="#F7F7F9" BorderThickness="0" x:Name="lsvGoals">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Goals:TargetUC Margin="0,0,20,0" item="{Binding }"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                    </ListView>
+                </StackPanel>
+                <StackPanel Grid.Row="2" Margin="20,15,20,20">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Статистика" FontFamily="Montserrat" FontWeight="SemiBold" FontSize="18" />
+                        <Button Background="#F7F7F9"
+								BorderThickness="0"
+								Click="Button_Click"
+								Content="Печатать отчет"
+								Margin="430,0,0,0"
+								FontFamily="Montserrat"
+								FontWeight="Medium"
+								FontSize="16" />
+                        <Image Source="\Resources\Images\arrow.png" Margin="10,0,0,0" Width="25"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="7,0,0,0">
+                        <ComboBox x:Name="cmbItem" SelectionChanged="cmbItem_SelectionChanged" SelectedIndex="0"  Style="{StaticResource ComboBoxPeriodSelectedItem}" FontFamily="Montserrat" Foreground="#757575" FontWeight="Medium" FontSize="12" DisplayMemberPath="DateTimeFormat" />
+                        <Image Source="\Resources\Images\arrowdown.png" Margin="7,-5,0,0" Opacity="0.5" Width="17"/>
+                    </StackPanel>
+                    <Border Height="100" CornerRadius="15" Margin="0,15,0,0" Background="#fff">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="5*"/>
+                                <ColumnDefinition Width="3*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0"  Margin="0,15,0,15">
+                                <Label x:Name="lblCountPayment" HorizontalAlignment="Center" FontFamily="Montserrat"  FontWeight="Bold" FontSize="33" />
+                                <Label  Content="Количество операций" HorizontalAlignment="Center" FontFamily="Montserrat" Foreground="#757575" FontWeight="Medium" FontSize="12" />
+                            </StackPanel>
+                            <Border Grid.Column="1" BorderThickness="1,0,1,0"  BorderBrush="#757575" Margin="0,15,0,15" >
+                                <StackPanel>
+                                <Label x:Name="lblAmount"  HorizontalAlignment="Center" FontFamily="Montserrat"  FontWeight="Bold" FontSize="33" />
+                                    <Label Content="Траты за месяц" HorizontalAlignment="Center" FontFamily="Montserrat" Foreground="#757575" FontWeight="Medium" FontSize="12" />
+                            </StackPanel>
+                            </Border>
+                            <StackPanel Grid.Column="2"  Margin="0,15,0,15">
+                                <Label x:Name="lblTargetCount" HorizontalAlignment="Center" FontFamily="Montserrat"  FontWeight="Bold" FontSize="33" />
+                                <Label Content="Действующие цели" HorizontalAlignment="Center" FontFamily="Montserrat" Foreground="#757575" FontWeight="Medium" FontSize="12" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+                <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="20,0,20,0" >
+                    <Border Margin="45,0,0,0" Background="#fff" Width="260" Height="45" CornerRadius="15">
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="btnOperation"
+									Click="btnOperation_Click"
+									Content="Добавить траты"
+									Background="#fff"
+									BorderThickness="0"
+									Height="20"
+									Margin="10,0,0,0"
+									FontFamily="Montserrat"
+									FontWeight="Medium"
+									FontSize="14" />
+                            <Image Source="\Resources\Images\arrow.png" Margin="85,0,0,0" Width="35"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Margin="65,0,0,0" Background="#fff" Width="260" Height="45" CornerRadius="15">
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="btnCategories"
+								Click="btnCategories_Click"
+								Content="Добавить категорию"
+								Background="#fff"
+								BorderThickness="0"
+								Height="20"
+								Margin="10,0,0,0"
+								FontFamily="Montserrat"
+								FontWeight="Medium"
+								FontSize="14" />
+                            <Image Source="\Resources\Images\arrow.png" Margin="47,0,0,0" Width="35"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Column="1" Background="#EEEDF2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="12*"/>
+                    <RowDefinition Height="5.5*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Margin="25">
+                    <Label Content="События" FontFamily="Montserrat"  FontWeight="SemiBold" FontSize="18" />
+                    <ListView x:Name="lsvEvent" BorderThickness="0" Background="#EEEDF2">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border Width="250" Padding="10" Margin="0,10,0,0" Background="#fff" CornerRadius="15" Height="100">
+                                    <StackPanel>
+                                        <Label Content="{Binding Goal.TitleString}" FontFamily="Montserrat"  FontWeight="Medium" FontSize="14" />
+                                        <Label Content="{Binding AmountString }" FontFamily="Montserrat"  FontWeight="Bold" FontSize="16" />
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="{Binding DatePaymentStr}" FontFamily="Inter" Foreground="#757575" FontWeight="Regular" FontSize="12" />
+                                            <Border Margin="35,0,0,0" Height="20" Width="85" Background="#F44336" CornerRadius="10" >
+                                                <Label Content="личное" FontSize="12" Foreground="#fff" Margin="0" Padding="20,0,0,0" />
+                                            </Border>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Border Margin="0,25,0,0" Background="#fff" Width="260" Height="45" CornerRadius="15">
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="btnPAyment" Click="btnPAyment_Click"
+									Content="Добавить операцию"
+									Background="#fff"
+									BorderThickness="0"
+									Height="20" Margin="10,0,0,0" FontFamily="Montserrat"  FontWeight="Medium" FontSize="14" />
+                            <Image Source="\Resources\Images\arrow.png" Margin="55,0,0,0" Width="35"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Margin="0,-5,0,0">
+                    <Statistic:StatisticsUC Height="170" />
+                    <Label FontFamily="Montserrat"  FontWeight="Medium" Margin="0,10,0,0" HorizontalAlignment="Center" Content="Статистика по операциям" FontSize="14" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
+    </Grid>
+</Page>
