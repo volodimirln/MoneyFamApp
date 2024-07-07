@@ -13,7 +13,7 @@ namespace MoneyFamDestopApp.Data.Models
         }
 
         private static Model _context;
-        public static Model GetContex()
+        public static Model GetContext()
         {
             if (_context == null)
                 _context = new Model();

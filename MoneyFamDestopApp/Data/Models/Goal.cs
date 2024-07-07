@@ -54,7 +54,7 @@ namespace MoneyFamDestopApp.Data.Models
             {
                 try
                 {
-                    return Math.Round(Convert.ToDouble(Model.GetContex().Payments.Where(p => p.IsDone == true && p.GoalId == Id).Sum(p => p.Amount)), 2);
+                    return Math.Round(Convert.ToDouble(Model.GetContext().Payments.Where(p => p.IsDone == true && p.GoalId == Id).Sum(p => p.Amount)), 2);
                 }
                 catch
                 {

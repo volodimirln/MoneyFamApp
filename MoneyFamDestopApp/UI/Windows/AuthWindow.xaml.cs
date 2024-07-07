@@ -47,7 +47,7 @@ namespace MoneyFamDestopApp.UI.Windows
             if (!string.IsNullOrEmpty(password) && !string.IsNullOrEmpty(tbxLogin.Text))
             {
                
-                    User user = Model.GetContex().Users.FirstOrDefault(p => p.Login == tbxLogin.Text);
+                    User user = Model.GetContext().Users.FirstOrDefault(p => p.Login == tbxLogin.Text);
                     if (user != null && user.Password == password)
                     {
 						MessageBox.Show("Добро пожаловать!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);

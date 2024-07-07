@@ -12,19 +12,19 @@ namespace UnitTestsMoneyFamDesktopApp
         [TestMethod]
         public void TestStatisticMonth_ReturnIsNotNull()
         {
-            double result = Statistics.GetStatisticMonth(1);
+            double result = Statistics.GetStatisticMonth(1, DateTime.Now);
             Assert.IsNotNull(result);
         }
         [TestMethod]
         public void TestStatisticTarget_ReturnIsNotNull()
         {
-            double result = Statistics.GetStatisticTarget(1);
+            double result = Statistics.GetStatisticTarget(1, DateTime.Now);
             Assert.IsNotNull(result);
         }
         [TestMethod]
         public void TestStatisticPayment_ReturnIsNotNull()
         {
-            double result = Statistics.GetStatisticPayment(1);
+            double result = Statistics.GetStatisticPayment(1, DateTime.Now);
             Assert.IsNotNull(result);
         }
     }

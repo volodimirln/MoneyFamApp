@@ -26,7 +26,7 @@ namespace MoneyFamDestopApp.UI.UserControllers
     public partial class StatisticsUC : UserControl
     {
         public LiveCharts.SeriesCollection SeriesCollection { get; set; }
-        private List<Payment> payment = Model.GetContex().Payments.Where(p => p.Goal.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).Take(5).ToList();
+        private List<Payment> payment = Model.GetContext().Payments.Where(p => p.Goal.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).Take(5).ToList();
         private ChartValues<ObservablePoint> observablePoints = new ChartValues<ObservablePoint>();
         public StatisticsUC()
         {

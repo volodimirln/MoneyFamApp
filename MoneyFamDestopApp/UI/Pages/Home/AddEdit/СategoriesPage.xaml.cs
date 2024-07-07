@@ -19,10 +19,10 @@ namespace MoneyFamDestopApp.UI.Pages.Home.AddEdit
         {
             InitializeComponent();
             btnDel.Visibility = Visibility.Collapsed;
-            lblPage.Content = Math.Ceiling(Convert.ToDecimal(skip / 5)) + 1 + "/" + Math.Ceiling(Convert.ToDecimal(1 + Model.GetContex().Categories.Where(p => p.UserId == HomeWindow.user.Id && p.Active == true || p.UserId == null).Count() / 5));
-            if (Model.GetContex().Categories.Where(p => p.UserId == HomeWindow.user.Id || p.UserId == null).Count() > 5)
+            lblPage.Content = Math.Ceiling(Convert.ToDecimal(skip / 5)) + 1 + "/" + Math.Ceiling(Convert.ToDecimal(1 + Model.GetContext().Categories.Where(p => p.UserId == HomeWindow.user.Id && p.Active == true || p.UserId == null).Count() / 5));
+            if (Model.GetContext().Categories.Where(p => p.UserId == HomeWindow.user.Id || p.UserId == null).Count() > 5)
             {
-                lblCount.Content = "5 из " + Model.GetContex().Categories.Where(p => p.UserId == HomeWindow.user.Id && p.Active == true || p.UserId == null).Count();
+                lblCount.Content = "5 из " + Model.GetContext().Categories.Where(p => p.UserId == HomeWindow.user.Id && p.Active == true || p.UserId == null).Count();
             }
             else
             {
@@ -30,7 +30,7 @@ namespace MoneyFamDestopApp.UI.Pages.Home.AddEdit
                 img2.Visibility = Visibility.Collapsed;
                 lblCount.Content = "       ";
             }
-            lsvItems.ItemsSource = Model.GetContex().Categories.Where(p => (p.UserId == null || p.UserId == HomeWindow.user.Id) && p.Active == true).OrderByDescending(p => p.Id).Take(5).ToList();
+            lsvItems.ItemsSource = Model.GetContext().Categories.Where(p => (p.UserId == null || p.UserId == HomeWindow.user.Id) && p.Active == true).OrderByDescending(p => p.Id).Take(5).ToList();
         }
 
         public int take = 5;
@@ -41,28 +41,28 @@ namespace MoneyFamDestopApp.UI.Pages.Home.AddEdit
             skip -= 5;
             if (skip >= 0)
             {
-                lblCount.Content = Model.GetContex().Categories.Where(p => (p.UserId == null || p.UserId == HomeWindow.user.Id) && p.Active == true).OrderByDescending(p => p.Id).Skip(skip).Take(take).Count() +
-                    " из " + Model.GetContex().Categories.Where(p => p.UserId == HomeWindow.user.Id && p.Active == true || p.UserId == null).Count();
-                lsvItems.ItemsSource = Model.GetContex().Categories.Where(p => (p.UserId == null || p.UserId == HomeWindow.user.Id) && p.Active == true).OrderByDescending(p => p.Id).Skip(skip).Take(take).ToList();
-                lblPage.Content = Math.Ceiling(Convert.ToDecimal(skip / 5)) + 1 + "/" + Math.Ceiling(Convert.ToDecimal(1 + Model.GetContex().Categories.Where(p => p.UserId == HomeWindow.user.Id && p.Active == true || p.UserId == null).Count() / 5));
+                lblCount.Content = Model.GetContext().Categories.Where(p => (p.UserId == null || p.UserId == HomeWindow.user.Id) && p.Active == true).OrderByDescending(p => p.Id).Skip(skip).Take(take).Count() +
+                    " из " + Model.GetContext().Categories.Where(p => p.UserId == HomeWindow.user.Id && p.Active == true || p.UserId == null).Count();
+                lsvItems.ItemsSource = Model.GetContext().Categories.Where(p => (p.UserId == null || p.UserId == HomeWindow.user.Id) && p.Active == true).OrderByDescending(p => p.Id).Skip(skip).Take(take).ToList();
+                lblPage.Content = Math.Ceiling(Convert.ToDecimal(skip / 5)) + 1 + "/" + Math.Ceiling(Convert.ToDecimal(1 + Model.GetContext().Categories.Where(p => p.UserId == HomeWindow.user.Id && p.Active == true || p.UserId == null).Count() / 5));
             }
             else
             {
                 skip = 0;
-                lsvItems.ItemsSource = Model.GetContex().Categories.Where(p => (p.UserId == null || p.UserId == HomeWindow.user.Id) && p.Active == true).OrderByDescending(p => p.Id).Skip(skip).Take(take).ToList();
+                lsvItems.ItemsSource = Model.GetContext().Categories.Where(p => (p.UserId == null || p.UserId == HomeWindow.user.Id) && p.Active == true).OrderByDescending(p => p.Id).Skip(skip).Take(take).ToList();
             }
         }
 
         private void btnRight_Click(object sender, RoutedEventArgs e)
         {
             skip += 5;
-            List<Category> item = Model.GetContex().Categories.Where(p => (p.UserId == null || p.UserId == HomeWindow.user.Id) && p.Active == true).OrderByDescending(p => p.Id).ToList().Skip(skip).Take(take).ToList();
+            List<Category> item = Model.GetContext().Categories.Where(p => (p.UserId == null || p.UserId == HomeWindow.user.Id) && p.Active == true).OrderByDescending(p => p.Id).ToList().Skip(skip).Take(take).ToList();
             if (item.Count != 0)
             {
                 lsvItems.ItemsSource = item;
-                lblCount.Content = Model.GetContex().Categories.Where(p => (p.UserId == null || p.UserId == HomeWindow.user.Id) && p.Active == true).OrderByDescending(p => p.Id).Skip(skip).Take(take).Count() +
-                    " из " + Model.GetContex().Categories.Where(p => p.UserId == HomeWindow.user.Id && p.Active == true || p.UserId == null).Count();
-                lblPage.Content = Math.Ceiling(Convert.ToDecimal(skip / 5)) + 1 + "/" + Math.Ceiling(Convert.ToDecimal(1 + Model.GetContex().Categories.Where(p => p.UserId == HomeWindow.user.Id && p.Active == true || p.UserId == null).Count() / 5));
+                lblCount.Content = Model.GetContext().Categories.Where(p => (p.UserId == null || p.UserId == HomeWindow.user.Id) && p.Active == true).OrderByDescending(p => p.Id).Skip(skip).Take(take).Count() +
+                    " из " + Model.GetContext().Categories.Where(p => p.UserId == HomeWindow.user.Id && p.Active == true || p.UserId == null).Count();
+                lblPage.Content = Math.Ceiling(Convert.ToDecimal(skip / 5)) + 1 + "/" + Math.Ceiling(Convert.ToDecimal(1 + Model.GetContext().Categories.Where(p => p.UserId == HomeWindow.user.Id && p.Active == true || p.UserId == null).Count() / 5));
             }
             else
             {
@@ -85,10 +85,10 @@ namespace MoneyFamDestopApp.UI.Pages.Home.AddEdit
                         Active = true,
                         DateRegistration = DateTime.Now
                     };
-                    Model.GetContex().Categories.Add(item);
-                    Model.GetContex().SaveChanges();
+                    Model.GetContext().Categories.Add(item);
+                    Model.GetContext().SaveChanges();
                     MessageBox.Show("Данные сохранены", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
-                    lsvItems.ItemsSource = Model.GetContex().Categories.Where(p => (p.UserId == null || p.UserId == HomeWindow.user.Id) && p.Active == true).OrderByDescending(p => p.Id).Take(5).ToList();
+                    lsvItems.ItemsSource = Model.GetContext().Categories.Where(p => (p.UserId == null || p.UserId == HomeWindow.user.Id) && p.Active == true).OrderByDescending(p => p.Id).Take(5).ToList();
                     tbxTitle.Text = "";
                 }
                 else
@@ -98,10 +98,10 @@ namespace MoneyFamDestopApp.UI.Pages.Home.AddEdit
                     {
                         btnDel.Visibility = Visibility.Visible;
                         item.Title = tbxTitle.Text;
-                        Model.GetContex().Categories.AddOrUpdate(item);
-                        Model.GetContex().SaveChanges();
+                        Model.GetContext().Categories.AddOrUpdate(item);
+                        Model.GetContext().SaveChanges();
                         MessageBox.Show("Данные сохранены", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
-                        lsvItems.ItemsSource = Model.GetContex().Categories.Where(p => (p.UserId == null || p.UserId == HomeWindow.user.Id) && p.Active == true).OrderByDescending(p => p.Id).Take(5).ToList();
+                        lsvItems.ItemsSource = Model.GetContext().Categories.Where(p => (p.UserId == null || p.UserId == HomeWindow.user.Id) && p.Active == true).OrderByDescending(p => p.Id).Take(5).ToList();
                         tbxTitle.Text = "";
                     }
                 }
@@ -134,10 +134,10 @@ namespace MoneyFamDestopApp.UI.Pages.Home.AddEdit
                {
                    Category item = (lsvItems.SelectedItem as Category);
                    item.Active = false;
-                   Model.GetContex().Categories.AddOrUpdate(item);
-                   Model.GetContex().SaveChanges();
+                   Model.GetContext().Categories.AddOrUpdate(item);
+                   Model.GetContext().SaveChanges();
                    MessageBox.Show("Категория перенесена в архив", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
-                   lsvItems.ItemsSource = Model.GetContex().Categories.Where(p => (p.UserId == null || p.UserId == HomeWindow.user.Id) && p.Active == true).OrderByDescending(p => p.Id).Take(5).ToList();
+                   lsvItems.ItemsSource = Model.GetContext().Categories.Where(p => (p.UserId == null || p.UserId == HomeWindow.user.Id) && p.Active == true).OrderByDescending(p => p.Id).Take(5).ToList();
                }
                catch
                {

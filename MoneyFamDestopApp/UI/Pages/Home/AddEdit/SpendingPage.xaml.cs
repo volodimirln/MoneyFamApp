@@ -51,7 +51,7 @@ namespace MoneyFamDestopApp.UI.Pages.Home.AddEdit
             }
             //lblPtriod.Content = "с 01." + DateTime.Now.ToString("MM") + " по 01." + DateTime.Now.AddMonths(1).ToString("MM");
             lsvItems.ItemsSource = DatePeriodViewModel.GetOperationList(DateTime.Now).OrderByDescending(p => p.Id).Take(5).ToList();
-            cmbItem.ItemsSource = Model.GetContex().Categories.Where(p => p.UserId == null || p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).ToList();
+            cmbItem.ItemsSource = Model.GetContext().Categories.Where(p => p.UserId == null || p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).ToList();
             List<DatePeriod> period = new List<DatePeriod>();
             period.Add(new DatePeriod() { DateTime = DateTime.Now });
             period.Add(new DatePeriod() { DateTime = DateTime.Now.AddMonths(-1) });
@@ -71,12 +71,13 @@ namespace MoneyFamDestopApp.UI.Pages.Home.AddEdit
                     Note = tbxTitle.Text,
                     DateCompletion = DateTime.Now
                 };
-                Model.GetContex().Operations.Add(item);
-                Model.GetContex().SaveChanges();
+                Model.GetContext().Operations.Add(item);
+                Model.GetContext().SaveChanges();
                 MessageBox.Show("Данные сохранены", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
                 lsvItems.ItemsSource = DatePeriodViewModel.GetOperationList(period).OrderByDescending(p => p.Id).Take(5).ToList();
                 tbxTitle.Text = "";
                 tbxAmount.Text = "";
+                cmbItem.SelectedItem = null;
             }
             catch
             {
@@ -90,8 +91,8 @@ namespace MoneyFamDestopApp.UI.Pages.Home.AddEdit
             {
                 try
                 {
-                    Model.GetContex().Operations.Remove((lsvItems.SelectedItem as Operation));
-                    Model.GetContex().SaveChanges();
+                    Model.GetContext().Operations.Remove((lsvItems.SelectedItem as Operation));
+                    Model.GetContext().SaveChanges();
                     MessageBox.Show("Данные удалены", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
                     lsvItems.ItemsSource = DatePeriodViewModel.GetOperationList(period).OrderByDescending(p => p.Id).Take(5).ToList();
                 }

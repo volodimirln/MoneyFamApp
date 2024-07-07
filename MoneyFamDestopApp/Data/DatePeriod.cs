@@ -12,7 +12,7 @@ namespace MoneyFamDestopApp.Data
     {
         public static List<Goal> GetGoalList(DateTime date)
         {
-            List<Goal> temp = Model.GetContex().Goals.Where(p => p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).Take(3).ToList();
+            List<Goal> temp = Model.GetContext().Goals.Where(p => p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).Take(3).ToList();
             List<Goal> result = new List<Goal>();
             foreach (Goal item in temp)
             {
@@ -28,7 +28,7 @@ namespace MoneyFamDestopApp.Data
 
         public static List<Payment> GetPaymentList(DateTime date)
         {
-            List<Payment> temp = Model.GetContex().Payments.Where(p => p.Goal.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).ToList();
+            List<Payment> temp = Model.GetContext().Payments.Where(p => p.Goal.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).ToList();
             List<Payment> result = new List<Payment>();
             foreach (Payment item in temp)
             {
@@ -47,7 +47,7 @@ namespace MoneyFamDestopApp.Data
 
         public static List<Operation> GetOperationList(DateTime date)
         {
-            List<Operation> temp = Model.GetContex().Operations.Where(p => p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).ToList();
+            List<Operation> temp = Model.GetContext().Operations.Where(p => p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).ToList();
             List<Operation> result = new List<Operation>();
             foreach (Operation item in temp)
             {

@@ -46,19 +46,26 @@ namespace MoneyFamDestopApp.UI.Windows
             
                 try
                 {
+                if (Model.GetContext().Users.FirstOrDefault(p => p.Login == tbxLogin.Text) == null)
+                {
                     User user = new User()
                     {
                         Surname = tbxSurname.Text,
                         Name = tbxName.Text,
                         Patronymic = tbxPatronymic.Text,
-                        Login = tbxEmail.Text,
+                        Login = tbxLogin.Text,
                         Password = password
                     };
-                    Model.GetContex().Users.Add(user);
-                    Model.GetContex().SaveChanges();
+                    Model.GetContext().Users.Add(user);
+                    Model.GetContext().SaveChanges();
                     MessageBox.Show("Регистрация прошла успешно", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                     new AuthWindow().Show();
                     this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Пользователь с таким логином уже существует");
+                }
                 }
                 catch
                 {

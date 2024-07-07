@@ -52,7 +52,7 @@ namespace MoneyFamDestopApp.UI.Pages.Home.AddEdit
 			{
 				lsvItems.Visibility = Visibility.Collapsed;
 			}
-			cmbItem.ItemsSource = Model.GetContex().Goals.Where(p => p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).ToList();
+			cmbItem.ItemsSource = Model.GetContext().Goals.Where(p => p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).ToList();
             List<DatePeriod> period = new List<DatePeriod>();
             period.Add(new DatePeriod() { DateTime = DateTime.Now });
             period.Add(new DatePeriod() { DateTime = DateTime.Now.AddMonths(-1) });
@@ -74,12 +74,14 @@ namespace MoneyFamDestopApp.UI.Pages.Home.AddEdit
                     IsYield = cmbIsYield.SelectedIndex,
                     IsDone = false
                 };
-                Model.GetContex().Payments.Add(item);
-                Model.GetContex().SaveChanges();
+                Model.GetContext().Payments.Add(item);
+                Model.GetContext().SaveChanges();
                 MessageBox.Show("Данные сохранены", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
                 lsvItems.ItemsSource = DatePeriodViewModel.GetPaymentList(period).OrderBy(p => p.DateExecution).Take(5).ToList();
                 tbxTitle.Text = "";
                 tbxAmount.Text = "";
+                cmbItem.SelectedItem = null;
+                cmbIsYield.SelectedItem = null;
                 }
 
             }
@@ -141,8 +143,8 @@ namespace MoneyFamDestopApp.UI.Pages.Home.AddEdit
                         {
                             item.IsDone = true;
                             item.DateExecution = DateTime.Now;
-                            Model.GetContex().Payments.AddOrUpdate(item);
-                            Model.GetContex().SaveChanges();
+                            Model.GetContext().Payments.AddOrUpdate(item);
+                            Model.GetContext().SaveChanges();
                             MessageBox.Show("Операция выполнена", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
                             lsvItems.ItemsSource = DatePeriodViewModel.GetPaymentList(period).OrderByDescending(p => p.Id).Take(5).ToList();
                         }
@@ -151,8 +153,8 @@ namespace MoneyFamDestopApp.UI.Pages.Home.AddEdit
                             MessageBox.Show("Операция выполнена", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
                             if (MessageBox.Show("Вы уверены, что хотите удалить запись?", "Удалить запись", MessageBoxButton.YesNo, MessageBoxImage.Stop) == MessageBoxResult.Yes)
                             {
-                                Model.GetContex().Payments.Remove((lsvItems.SelectedItem as Payment));
-                                Model.GetContex().SaveChanges();
+                                Model.GetContext().Payments.Remove((lsvItems.SelectedItem as Payment));
+                                Model.GetContext().SaveChanges();
                                 MessageBox.Show("Операция удалена", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
                                 lsvItems.ItemsSource = DatePeriodViewModel.GetPaymentList(period).OrderByDescending(p => p.Id).Take(5).ToList();
                             }

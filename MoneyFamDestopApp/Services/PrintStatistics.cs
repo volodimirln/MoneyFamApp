@@ -32,18 +32,18 @@ namespace MoneyFamDestopApp.Services
                 PdfWriter.GetInstance(document, stream);
                 document.Open();
                 String phrase = "Статистика от " + DateTime.Now.ToString("dd.MM.yyyy HH.mm");
-                User user = Model.GetContex().Users.FirstOrDefault(p => p.Id == userId);
-                int paymentcount = Model.GetContex().Payments.Where(p => p.Goal.User.Id == userId && p.IsDone == false).Count();
+                User user = Model.GetContext().Users.FirstOrDefault(p => p.Id == userId);
+                int paymentcount = Model.GetContext().Payments.Where(p => p.Goal.User.Id == userId && p.IsDone == false).Count();
                 int amount = 0;
                 try
                 {
-                    amount = Model.GetContex().Operations.Where(p => p.UserId == userId).Sum(p => p.Amount);
+                    amount = Model.GetContext().Operations.Where(p => p.UserId == userId).Sum(p => p.Amount);
                 }
                 catch 
                 {
                     return false;
                 }
-                int target = Model.GetContex().Goals.Where(p => p.UserId == userId).Count();
+                int target = Model.GetContext().Goals.Where(p => p.UserId == userId).Count();
                 document.Add(new iTextSharp.text.Paragraph(phrase, font1));
                 document.Add(new iTextSharp.text.Paragraph("Данные клиента", font3));
                 document.Add(new iTextSharp.text.Paragraph(user.Surname + " " + user.Name + " " + user.Patronymic, font2));

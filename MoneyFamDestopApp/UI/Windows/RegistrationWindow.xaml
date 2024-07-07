@@ -34,7 +34,7 @@
                 </TextBox.Resources>
             </TextBox>
             <Label FontFamily="Montserrat" Content="Логин"  FontSize="16" Margin="0,15,0,0"/>
-            <TextBox x:Name="tbxEmail" Padding="10" Height="35" BorderThickness="0" >
+            <TextBox x:Name="tbxLogin" Padding="10" Height="35" BorderThickness="0" >
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="7"/>

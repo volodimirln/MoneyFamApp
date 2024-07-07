@@ -25,7 +25,7 @@ namespace MoneyFamDestopApp.UI.Pages.Family
         public WelcomeFamilyPage()
         {
             InitializeComponent();
-            if (Model.GetContex().FamilyMembers.Where(p => p.UserId == HomeWindow.user.Id).Count() > 0 || Model.GetContex().Families.Where(p => p.UserId == HomeWindow.user.Id).Count() > 0)
+            if (Model.GetContext().FamilyMembers.Where(p => p.UserId == HomeWindow.user.Id).Count() > 0 || Model.GetContext().Families.Where(p => p.UserId == HomeWindow.user.Id).Count() > 0)
             {
                 MainFrame.Navigate(new FamilyPage());
             }
@@ -35,9 +35,9 @@ namespace MoneyFamDestopApp.UI.Pages.Family
         {
             try
             {
-                Model.GetContex().Families.Add(new Data.Models.Family() { Title = "Семья " +
+                Model.GetContext().Families.Add(new Data.Models.Family() { Title = "Семья " +
                     HomeWindow.user.Surname, UserId = HomeWindow.user.Id, DateRegistration = DateTime.Now, IsActive = true, SecretKey = CreateMD5(DateTime.Now + "123utirjfkdjfn") });
-                Model.GetContex().SaveChanges();
+                Model.GetContext().SaveChanges();
                 MainFrame.Navigate(new FamilyPage());
             }
             catch { MessageBox.Show("Ошибка", "Информация", MessageBoxButton.OK, MessageBoxImage.Error); }
@@ -61,11 +61,11 @@ namespace MoneyFamDestopApp.UI.Pages.Family
         {
             try
             {
-                Data.Models.Family family = Model.GetContex().Families.FirstOrDefault(p => p.IsActive == true && p.SecretKey == tbxTitle.Text);
+                Data.Models.Family family = Model.GetContext().Families.FirstOrDefault(p => p.IsActive == true && p.SecretKey == tbxTitle.Text);
                 if (family != null)
                 {
-                    Model.GetContex().FamilyMembers.Add(new Data.Models.FamilyMember() { UserId = HomeWindow.user.Id, FamilyId = family.Id });
-                    Model.GetContex().SaveChanges();
+                    Model.GetContext().FamilyMembers.Add(new Data.Models.FamilyMember() { UserId = HomeWindow.user.Id, FamilyId = family.Id });
+                    Model.GetContext().SaveChanges();
                     MessageBox.Show("Ваша семья найдена!", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
                     MainFrame.Navigate(new FamilyPage());
                 }

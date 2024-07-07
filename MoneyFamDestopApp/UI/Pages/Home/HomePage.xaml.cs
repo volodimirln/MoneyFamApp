@@ -31,7 +31,7 @@ namespace MoneyFamDestopApp.UI.Pages.Home
                 lsvGoals.Visibility = Visibility.Collapsed;
             }
             lblWelcome.Content = "Добро пожаловать, " + HomeWindow.user.Name + " " + HomeWindow.user.Patronymic;
-            lsvEvent.ItemsSource = Model.GetContex().Payments.Where(p => p.Goal.User.Id == HomeWindow.user.Id && p.IsDone == false).OrderByDescending(p => p.DateExecution).Take(2).ToList();
+            lsvEvent.ItemsSource = Model.GetContext().Payments.Where(p => p.Goal.User.Id == HomeWindow.user.Id && p.IsDone == false).OrderByDescending(p => p.DateExecution).Take(2).ToList();
             lblCountPayment.Content = Statistics.GetStatisticPayment(HomeWindow.user.Id , DateTime.Now);
             lblAmount.Content = Statistics.GetStatisticMonth(HomeWindow.user.Id, DateTime.Now).ToString("C2");
             lblTargetCount.Content = Statistics.GetStatisticTarget(HomeWindow.user.Id, DateTime.Now);

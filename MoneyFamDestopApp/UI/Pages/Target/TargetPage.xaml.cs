@@ -6,17 +6,9 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using static iTextSharp.text.pdf.AcroFields;
 
 namespace MoneyFamDestopApp.UI.Pages.Target
 {
@@ -29,9 +21,8 @@ namespace MoneyFamDestopApp.UI.Pages.Target
         public TargetPage()
         {
             InitializeComponent();
-            //lblPtriod.Content = "с 01." + DateTime.Now.ToString("MM") + " по 01." + DateTime.Now.AddMonths(1).ToString("MM");
-            lblPage.Content = Math.Ceiling(Convert.ToDecimal(skip / 5)) + 1 + "/" + Math.Ceiling(Convert.ToDecimal(1 + Model.GetContex().Goals.Where(p => p.UserId == HomeWindow.user.Id).Count() / 5));
-            List<Goal> item = Model.GetContex().Goals.Where(p => p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).Take(6).ToList();
+            lblPage.Content = Math.Ceiling(Convert.ToDecimal(skip / 5)) + 1 + "/" + Math.Ceiling(Convert.ToDecimal(1 + Model.GetContext().Goals.Where(p => p.UserId == HomeWindow.user.Id).Count() / 5));
+            List<Goal> item = Model.GetContext().Goals.Where(p => p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).Take(6).ToList();
                 if (item.Count > 0)
             {
                 lblEmpty.Visibility = Visibility.Collapsed;
@@ -41,9 +32,9 @@ namespace MoneyFamDestopApp.UI.Pages.Target
             {
                 lsvGoals.Visibility = Visibility.Collapsed;
             }
-            if (Model.GetContex().Goals.Where(p => p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).Count()  > 6)
+            if (Model.GetContext().Goals.Where(p => p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).Count()  > 6)
             {
-                lblCount.Content = item.Count + " из " + Model.GetContex().Goals.Where(p => p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).Count();
+                lblCount.Content = item.Count + " из " + Model.GetContext().Goals.Where(p => p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).Count();
             }
             else
             {
@@ -76,14 +67,15 @@ namespace MoneyFamDestopApp.UI.Pages.Target
                         Amount = Convert.ToInt32(tbxAmount.Text),
                         DateRegistration = DateTime.Now
                     };
-                    Model.GetContex().Goals.Add(item);
-                    Model.GetContex().SaveChanges();
+                    Model.GetContext().Goals.Add(item);
+                    Model.GetContext().SaveChanges();
                     MessageBox.Show("Данные сохранены", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
-                    lsvGoals.ItemsSource = Model.GetContex().Goals.Where(p => p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).ToList();
+                    lsvGoals.ItemsSource = Model.GetContext().Goals.Where(p => p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).ToList();
                     tbxTitle.Text = "";
                     tbxAmount.Text = "";
                     tbxDescription.Text = "";
                     tbxType.Text = "";
+                    cmbItem.SelectedItem = null;
                 }
                 catch
                 {
@@ -99,7 +91,7 @@ namespace MoneyFamDestopApp.UI.Pages.Target
                         isfamily = true;
                     }
                     int id = (lsvGoals.SelectedItem as Goal).Id;
-                    Goal item = Model.GetContex().Goals.FirstOrDefault(p => p.Id == id);
+                    Goal item = Model.GetContext().Goals.FirstOrDefault(p => p.Id == id);
 
        
                         item.UserId = HomeWindow.user.Id;
@@ -109,10 +101,10 @@ namespace MoneyFamDestopApp.UI.Pages.Target
                         item.Type = tbxType.Text;
                         item.Amount = Convert.ToInt32(tbxAmount.Text);
                     
-                    Model.GetContex().Goals.AddOrUpdate(item);
-                    Model.GetContex().SaveChanges();
+                    Model.GetContext().Goals.AddOrUpdate(item);
+                    Model.GetContext().SaveChanges();
                     MessageBox.Show("Данные сохранены", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
-                    lsvGoals.ItemsSource = Model.GetContex().Goals.Where(p => p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).ToList();
+                    lsvGoals.ItemsSource = Model.GetContext().Goals.Where(p => p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).ToList();
                     tbxTitle.Text = "";
                     tbxAmount.Text = "";
                     tbxDescription.Text = "";
@@ -130,24 +122,24 @@ namespace MoneyFamDestopApp.UI.Pages.Target
             skip -= 6;
             if (skip >= 0)
             {
-                lsvGoals.ItemsSource = Model.GetContex().Goals.Where(p => p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).Skip(skip).Take(take).ToList();
-                lblCount.Content = Model.GetContex().Goals.Where(p => p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).Skip(skip).Take(take).Count() +
-                    " из " + Model.GetContex().Goals.Where(p => p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).Count();
-                lblPage.Content = Math.Ceiling(Convert.ToDecimal(skip / 5)) + 1 + "/" + Math.Ceiling(Convert.ToDecimal(1 + Model.GetContex().Goals.Where(p => p.UserId == HomeWindow.user.Id).Count() / 5));
+                lsvGoals.ItemsSource = Model.GetContext().Goals.Where(p => p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).Skip(skip).Take(take).ToList();
+                lblCount.Content = Model.GetContext().Goals.Where(p => p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).Skip(skip).Take(take).Count() +
+                    " из " + Model.GetContext().Goals.Where(p => p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).Count();
+                lblPage.Content = Math.Ceiling(Convert.ToDecimal(skip / 5)) + 1 + "/" + Math.Ceiling(Convert.ToDecimal(1 + Model.GetContext().Goals.Where(p => p.UserId == HomeWindow.user.Id).Count() / 5));
             }
             else
             {
                 skip = 0;
-                lsvGoals.ItemsSource = Model.GetContex().Goals.Where(p => p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).Skip(skip).Take(take).ToList();
+                lsvGoals.ItemsSource = Model.GetContext().Goals.Where(p => p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).Skip(skip).Take(take).ToList();
             }
         }
 
         private void btnRight_Click(object sender, RoutedEventArgs e)
         {
             skip += 6;
-            List<Goal> item = Model.GetContex().Goals.Where(p => p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).ToList().Skip(skip).Take(take).ToList();
-            lblCount.Content = item.Count + " из " + Model.GetContex().Goals.Where(p => p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).Count();
-            lblPage.Content = Math.Ceiling(Convert.ToDecimal(skip / 5)) + 1 + "/" + Math.Ceiling(Convert.ToDecimal(1 + Model.GetContex().Goals.Where(p => p.UserId == HomeWindow.user.Id).Count() / 5));
+            List<Goal> item = Model.GetContext().Goals.Where(p => p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).ToList().Skip(skip).Take(take).ToList();
+            lblCount.Content = item.Count + " из " + Model.GetContext().Goals.Where(p => p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).Count();
+            lblPage.Content = Math.Ceiling(Convert.ToDecimal(skip / 5)) + 1 + "/" + Math.Ceiling(Convert.ToDecimal(1 + Model.GetContext().Goals.Where(p => p.UserId == HomeWindow.user.Id).Count() / 5));
             if (item.Count != 0)
             {
                 lsvGoals.ItemsSource = item;
@@ -192,10 +184,10 @@ namespace MoneyFamDestopApp.UI.Pages.Target
                 {
                     Goal item = (lsvGoals.SelectedItem as Goal);
 
-                    Model.GetContex().Goals.Remove(item);
-                    Model.GetContex().SaveChanges();
+                    Model.GetContext().Goals.Remove(item);
+                    Model.GetContext().SaveChanges();
                     MessageBox.Show("Цель удалена", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
-                    lsvGoals.ItemsSource = Model.GetContex().Goals.Where(p => p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).ToList();
+                    lsvGoals.ItemsSource = Model.GetContext().Goals.Where(p => p.UserId == HomeWindow.user.Id).OrderByDescending(p => p.Id).ToList();
                 }
                 catch
                 {

@@ -27,26 +27,26 @@ namespace MoneyFamDestopApp.UI.Pages.Family
         public FamilyPage()
         {
             InitializeComponent();
-            if (Model.GetContex().Families.Where(p => p.UserId == HomeWindow.user.Id && p.IsActive == true).Count() > 0)
+            if (Model.GetContext().Families.Where(p => p.UserId == HomeWindow.user.Id && p.IsActive == true).Count() > 0)
             {
-                Family = Model.GetContex().Families.FirstOrDefault(p => p.UserId == HomeWindow.user.Id && p.IsActive == true);
+                Family = Model.GetContext().Families.FirstOrDefault(p => p.UserId == HomeWindow.user.Id && p.IsActive == true);
             }
             else
             {
-                if (Model.GetContex().FamilyMembers.Where(p => p.UserId == HomeWindow.user.Id && p.Family.IsActive == true).Count() > 0)
+                if (Model.GetContext().FamilyMembers.Where(p => p.UserId == HomeWindow.user.Id && p.Family.IsActive == true).Count() > 0)
                 {
-                    Family = Model.GetContex().FamilyMembers.FirstOrDefault(p => p.UserId == HomeWindow.user.Id).Family;
+                    Family = Model.GetContext().FamilyMembers.FirstOrDefault(p => p.UserId == HomeWindow.user.Id).Family;
                     tbxTitle.IsReadOnly = true;
                 }
             }
-            List<FamilyMember> member = Model.GetContex().FamilyMembers.Where(p => p.FamilyId == Family.Id).OrderByDescending(p => p.Id).ToList();
+            List<FamilyMember> member = Model.GetContext().FamilyMembers.Where(p => p.FamilyId == Family.Id).OrderByDescending(p => p.Id).ToList();
             List<User> user = new List<User>();
             foreach (FamilyMember mb in member)
             {
                 user.Add(mb.User);
             }
-            user.Add(Model.GetContex().Users.FirstOrDefault(p => p.Id == Family.UserId) );
-            List<Goal> goals = Model.GetContex().Goals.Where(p => p.IsFamily == true).OrderByDescending(p => p.Id).ToList();
+            user.Add(Model.GetContext().Users.FirstOrDefault(p => p.Id == Family.UserId) );
+            List<Goal> goals = Model.GetContext().Goals.Where(p => p.IsFamily == true).OrderByDescending(p => p.Id).ToList();
             List<Goal> ngoals = new List<Goal>();
             foreach (Goal gl in goals)
             {
@@ -64,7 +64,7 @@ namespace MoneyFamDestopApp.UI.Pages.Family
             lblFamily.Content = Family.Title;
             tbxTitle.Text = Family.Title;
             tbxKey.Text = Family.SecretKey;
-            string owner = Model.GetContex().Users.FirstOrDefault(p => p.Id == Family.UserId).FullName;
+            string owner = Model.GetContext().Users.FirstOrDefault(p => p.Id == Family.UserId).FullName;
             lblOwner.Content = "Основатель семьи: " + owner;
             if (Family.IsActive)
             {
@@ -86,9 +86,9 @@ namespace MoneyFamDestopApp.UI.Pages.Family
                     try
                     {
                         int id = (lsvItems.SelectedItem as User).Id;
-                        FamilyMember mb = Model.GetContex().FamilyMembers.FirstOrDefault(p => p.FamilyId == Family.Id && p.UserId == id);
-                        Model.GetContex().FamilyMembers.Remove(mb);
-                        Model.GetContex().SaveChanges();
+                        FamilyMember mb = Model.GetContext().FamilyMembers.FirstOrDefault(p => p.FamilyId == Family.Id && p.UserId == id);
+                        Model.GetContext().FamilyMembers.Remove(mb);
+                        Model.GetContext().SaveChanges();
                         MessageBox.Show("Удален из семьи", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     catch { MessageBox.Show("Ошибка, вы не можете удалить самого себя!", "Информация", MessageBoxButton.OK, MessageBoxImage.Error); }
@@ -109,7 +109,7 @@ namespace MoneyFamDestopApp.UI.Pages.Family
                     }
                     Family.Title = tbxTitle.Text;
                     Family.IsActive = result;
-                    Model.GetContex().Families.AddOrUpdate(Family);
+                    Model.GetContext().Families.AddOrUpdate(Family);
                     MessageBox.Show("Данные изменены!", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch

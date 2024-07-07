@@ -11,7 +11,7 @@ namespace MoneyFamDestopApp.Services
     {
         public static double GetStatisticTarget(int userId, DateTime date)
         {
-            List<Goal> temp = Model.GetContex().Goals.Where(p => p.UserId == userId).ToList();
+            List<Goal> temp = Model.GetContext().Goals.Where(p => p.UserId == userId).ToList();
             List<Goal> result = new List<Goal>();
             foreach(Goal item in temp)
             {
@@ -26,7 +26,7 @@ namespace MoneyFamDestopApp.Services
         }
         public static double GetStatisticPayment(int userId, DateTime date)
         {
-            List<Payment> temp = Model.GetContex().Payments.Where(p => p.Goal.User.Id == userId).ToList();
+            List<Payment> temp = Model.GetContext().Payments.Where(p => p.Goal.User.Id == userId).ToList();
             List<Payment> result = new List<Payment>();
             foreach(Payment item in temp)
             {
@@ -51,7 +51,7 @@ namespace MoneyFamDestopApp.Services
             double amount = 0;
             try
             {
-                List<Operation> temp = Model.GetContex().Operations.Where(p => p.UserId == userId).ToList();
+                List<Operation> temp = Model.GetContext().Operations.Where(p => p.UserId == userId).ToList();
                 List<Operation> result = new List<Operation>();
                 foreach (Operation item in temp)
                 {
